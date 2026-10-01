@@ -10,6 +10,12 @@ INVENTORY_FILE = "inventory.txt"
 #load_inventory
 #save_inventory
 
+orders = [
+    {"order_id": 1001, "product_name": "Wireless Mouse", "quantity": 2},
+    {"order_id": 1002, "product_name": "Keyboard", "quantity": 1},
+    {"order_id": 1003, "product_name": "USB Cable", "quantity": 3}
+]   
+
 def load_inventory():
     try:
         with open(INVENTORY_FILE, "r") as f:
@@ -64,17 +70,22 @@ def generate_report(total_units, failed_attempts, history):
 inventory, transaction_history = load_inventory()
 
 while True:
-    print("Current Orders:")
-    print("1001, wireless Mouse, 2")
-    print("1002, Keyboard, 1")
-    print("1003, USB Cable, 3")    
-    order = input("Enter Product Name: ")
-    quantity = input("Enter Quantity: ")
+    print("\nCurrent Orders:")
+    for order in orders:
+        print(f"{order['order_id']}, {order['product_name']}, {order['quantity']}") 
+    order_name = input("Ennter Product Name: ")
+    order_quantity = input("Enter Product Quantity: ")
 
-    print("New Order Added:")
-    print(f"1004,{order},{quantity}")
-    print("Order successfully saved to orders.txt")
-
+    new_order_id = 1001 + len(orders)
+    new_order = {  
+        "order_id": new_order_id,
+        "product_name": order_name,
+        "quantity": int(order_quantity) if order_quantity.isdigit() else 0,
+    }
+    orders.append(new_order)
+    print("\nNew Order Added:")
+    print(f"{new_order['order_id']}, {new_order['product_name']}, {new_order['quantity']}   ")
+    print("Order successfully added to the list.")
     stock = get_valid_input()
 
 
