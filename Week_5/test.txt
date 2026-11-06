@@ -1,0 +1,92 @@
+===============================
+INVENTORY MANAGEMENT SYSTEM
+===============================
+
+inventory.json found.
+Inventory loaded successfully.
+
+------MENU---------------------
+1.Display All Products
+2.Add Products
+3.Update Stock
+4.Search Products
+5.Save Inventory
+6.Exit 
+
+--------------------------------
+
+Enter Option: 1
+
+Current Inventory
+---------------------------------
+ID:P001|Name:Laptop|Price:$1200.00|Stock:15
+ID:P002|Name:Mouse|Price:$25.50|Stock:40
+ID:P003|Name:Keyboard|Price:$45.00|Stock:25
+-----------------------------------
+
+Enter option: 2
+
+Add New Products
+Product ID：P1004
+Product Name: Monitor
+Price: 299.99
+Stock Quantity: 10
+
+Product added successfully!
+
+Enter option: 1
+
+Current Inventory
+---------------------------------
+ID:P001|Name:Laptop|Price:$1200.00|Stock:15
+ID:P002|Name:Mouse|Price:$25.50|Stock:40
+ID:P003|Name:Keyboard|Price:$45.00|Stock:25
+ID:P004|Name:Monitor|Price:$299.99|Stock:10
+-----------------------------------
+
+Enter option: 3
+
+Update Stock
+Enter Product ID: P1002
+
+Product Found:
+Name:Mounse
+Current Stock: 40
+
+New Stock Quantity: 50
+
+Stock updated successfully!
+
+
+Enter option: 4
+
+Search Product
+Enter Product ID: ID：P1004
+
+Product Found
+------------------------------
+ID：P1004
+Name:Monitor
+Price:$299.99
+Stock:10
+------------------------------
+
+Enter option: 5
+
+Saving Inventory...
+Inventory saved successfully to inventory.json.
+
+Enter option: 4
+
+Search Product
+Enter Product ID: ID：P9999
+
+Product not Found
+
+Enter option:6
+
+Saving inventory before exit...
+Inventory saved successfully.
+
+Thank you for using Inventory Management System.
+Program termnitated. 
