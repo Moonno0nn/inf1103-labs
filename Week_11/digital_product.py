@@ -1,13 +1,11 @@
 from product import Product
 from supplier import Supplier
-#1. init the Digital Products
-#2. Get for download size
-#3. display the information of the digital product
-#4. Return a message for explaining digital delivery
 
 class DigitalProduct(Product):
-    def __init__(self, product_id:str, name:str, price:float, stock:int, file_size:float, supplier: Supplier):
+    def __init__(self, product_id: str, name: str, price: float, stock: int, file_size: float = 0.0, supplier: Supplier = None):
         super().__init__(product_id, name, price, stock, supplier)
+        if file_size < 0:
+            raise ValueError("File size cannot be negative.")
         self.__file_size = file_size
 
     def get_download_size(self):

@@ -8,8 +8,10 @@ from supplier import Supplier
 # 5.Calculate shipping cost based on weight
 
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_id:str, name:str, price:float, stock:int, weight:float, supplier: Supplier):
+    def __init__(self, product_id:str, name:str, price:float, stock:int, weight:float = 0.0, supplier: Supplier = None):
         super().__init__(product_id, name, price, stock, supplier)
+        if weight < 0:
+            raise ValueError("Weight cannot be negative")
         self.__weight = weight
 
     def get_weight(self):

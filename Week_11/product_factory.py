@@ -1,42 +1,19 @@
-from abc import ABC, abstractmethod
+from product import Product
+from physical_product import PhysicalProduct
+from digital_product import DigitalProduct
+from supplier import Supplier
 
-class DiscountStrategy(ABC):
-    @abstractmethod
-    def apply_discount(self, price: float) -> float:
-        pass
+class ProductFactory:
+    @staticmethod
+    def create(product_type: str, product_id: str, name: str, price: float, 
+               stock_quantity: int, supplier: Supplier = None, **kwargs) -> Product:
+        ptype = product_type.strip().lower()
 
-class NoDiscount(DiscountStrategy):
-    def apply(self, total:float) -> float:
-        return total
-
-
-class PrecentageDiscount(DiscountStrategy):
-    def __init__(self, percentage: float):
-        if percentage < 0 or percentage > 100:
-            raise ValueError("Percentage must be between 0 and 100.")
-        self.percentage = percentage
-
-    def apply(self, total: float) -> float:
-        return total * (1 - self.percentage / 100)
-
-
-class BulkDiscount(DiscountStrategy):
-    def __init__(self, threshold:float, discount_amount:float):
-        if threshold < 0 or discount_amount < 0:
-            raise ValueError("Threshold and discount amount must be non-negative.")
-        self.threshold = threshold
-        self.discount_amount = discount_amount
-
-    def apply(self, total: float) -> float:
-        if total >= self.threshold:
-            return total - self.discount_amount
-        return total
-
-class StudentDiscount(DiscountStrategy):
-    def __init__(self, percentage: float = 5.0):
-        self.percentage = percentage
-
-    def apply(self, total:float) -> float:
-        return total * (1 - self.percentage/100)
-    
-        
+        if ptype == "physical":
+            weight = kwargs.get("weight", 0.0)
+            return PhysicalProduct(product_id, name, price, stock_quantity, weight=weight, supplier=supplier)
+        elif ptype == "digital":
+            file_size = kwargs.get("file_size", 0.0)
+            return DigitalProduct(product_id, name, price, stock_quantity, file_size=file_size, supplier=supplier)
+        else:
+            raise ValueError(f"Unknown product type: {product_type}")

@@ -1,4 +1,4 @@
-
+from product_factory import ProductFactory
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from inventory_manager import Inventory
@@ -6,8 +6,6 @@ from file_manager import load_inventory, save_inventory
 from supplier import Supplier
 from Order import Order
 from Order_manager import create_order
-
-
 
 def main():
     print("===============================")
@@ -23,7 +21,6 @@ def main():
         print("2. Add Product")
         print("3. Update Stock")
         print("4. Search Product")
-        #print("5. Create Order")
         print("5. Save Inventory")
         print("6. Exit")
         print("------------------")
@@ -51,8 +48,8 @@ def main():
                 price = float(input("Price: "))
                 stock = int(input("Stock Quantity: "))
 
-                if price < 0 or stock < 0:
-                    print("Price and stock cannot be negative.")
+                if price <= 0 or stock < 0:
+                    print("Price must be > 0 and stock cannot be negative.")
                     continue
 
                 if product_type == "1":
@@ -62,8 +59,8 @@ def main():
                         print("Weight cannot be negative.")
                         continue
 
-                    new_product = PhysicalProduct(
-                        product_id, name, price, stock, weight
+                    new_product = ProductFactory.create(
+                        "physical", product_id, name, price, stock, weight=weight
                     )
 
                 elif product_type == "2":
@@ -73,14 +70,14 @@ def main():
                         print("Download size cannot be negative.")
                         continue
 
-                    new_product = DigitalProduct(
-                        product_id, name, price, stock, download_size
+                    new_product = ProductFactory.create(
+                        "digital", product_id, name, price, stock, file_size=download_size
                     )
 
                 inventory.add_product(new_product)
 
-            except ValueError:
-                print("Invalid numeric input.")
+            except ValueError as e:
+                print(f"Invalid input: {e}")
 
         elif choice == "3":
             product_id = input("Enter Product ID: ").strip()
@@ -99,8 +96,8 @@ def main():
                     product.update_stock(new_stock)
                     print("Stock updated successfully!")
 
-                except ValueError:
-                    print("Invalid stock quantity.")
+                except ValueError as e:
+                    print(f"Invalid stock quantity: {e}")
             else:
                 print("Product not found.")
 
@@ -121,7 +118,6 @@ def main():
             else:
                 print("Product not found.")
 
-    
         elif choice == "5":
             save_inventory(inventory)
 
@@ -132,7 +128,7 @@ def main():
             break
 
         else:
-            print("Invalid option. Please enter 1 to 7.")
+            print("Invalid option. Please enter 1 to 6.")
 
 
 if __name__ == "__main__":
