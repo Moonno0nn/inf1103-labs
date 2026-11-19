@@ -1,4 +1,4 @@
-
+from discount_strategy import DiscountStrategy, NoDiscount
 from Orderline import Orderline
 from product import Product
 
@@ -8,6 +8,11 @@ class Order:
         #2. Order_lines: a collection of Orderline objects.
         self.order_id: str = order_id
         self.order_lines: list[Orderline] = []
+        self.discount: DiscountStrategy = discount if discount is not None else NoDiscount()
+
+    def set_discount(self, discount: DiscountStrategy) -> None:
+        self.discount = discount
+        # allow switching the discount strategy at runtime
 
     def add_order_line(self, product: Product, quantity: int) -> None:
         order_line = Orderline(product, quantity)
